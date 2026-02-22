@@ -7,6 +7,6 @@ import {
 const router = express.Router();
 
 router.get("/", getAllPictures);
-router.get("/latest", getPicture);
+router.get("/:id", getPicture);
 
 export default router;

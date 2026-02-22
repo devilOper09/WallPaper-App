@@ -9,7 +9,7 @@ import { upload } from "../config/multer.js";
 
 const router = express.Router();
 router.post("/", upload.single("image"), postAPicture);
-router.put("/:id", updatePicture);
+router.put("/:id", upload.single("image"), updatePicture);
 router.delete("/:id", deletePicture);
 
 export default router;

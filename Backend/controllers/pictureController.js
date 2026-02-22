@@ -48,39 +48,66 @@ export const postAPicture = async (req, res) => {
 };
 
 export const getPicture = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-    try {
-        const getImage = await sql`
-        SELECT image_url FROM pictures ORDER BY created_at DESC
-        `
-        res.status(200).json({
-            success: true,
-            data: getImage
-        });
-        console.log("request hit successfully")
-    } catch (error) {
-        res.status(500).json({ success: false, message: "internal server issue" })
+    const picture = await sql`
+      SELECT * FROM pictures WHERE id = ${id}
+    `;
 
+    if (picture.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Wallpaper not found"
+      });
     }
 
+    res.status(200).json({
+      success: true,
+      data: picture[0]
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "internal server issue"
+    });
+  }
 };
 export const updatePicture = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, description } = req.body;
 
-    try {
-        const {id} = req.params;
-        const {image_url} = req.body;
+    const updated = await sql`
+      UPDATE pictures
+      SET
+        name = COALESCE(${name}, name),
+        description = COALESCE(${description}, description)
+      WHERE id = ${id}
+      RETURNING *
+    `;
 
-        const update = await sql `
-        UPDATE pictures SET image_url = ${image_url} WHERE id = ${id}
-        RETURNING *
-        `
-        res.status(200).json({success: true, message:"data fetched successfully",  data: update});
-    } catch (error) {
-        res.status(500).json({success: false, message:"Internal server issue"});
-        
+    if (updated.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Wallpaper not found"
+      });
     }
 
+    res.status(200).json({
+      success: true,
+      message: "Updated successfully",
+      data: updated[0]
+    });
 
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server issue"
+    });
+  }
 };
 export const deletePicture = async (req, res) => {
 

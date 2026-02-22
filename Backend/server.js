@@ -14,11 +14,14 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
-app.use(helmet());
+app.use(helmet({crossOriginResourcePolicy: false}
+    
+));
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
-app.use("/uploads", express.static("uploads"))
+
+app.use("/uploads", express.static("uploads"));
 
 
 
@@ -48,7 +51,7 @@ async function initDb() {
             id SERIAL  PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             image_url VARCHAR NOT NULL,
-            description VARCHAR(255),
+            description TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `
@@ -59,9 +62,9 @@ async function initDb() {
 }
 
 
-app.get("/", async (req, res) => {
-
-})
+app.get("/", (req, res) => {
+  res.send("Backend is running");
+});
 initDb().then(() => {
     app.listen(port, () => {
         console.log(`server is running on this ${port}`);
