@@ -31,6 +31,13 @@ function ImagePage() {
     fetchWallpaper();
   }, [id]);  
 
+//   useEffect(()=>{
+//     window.scrollTo({
+//         top:0,
+//         behavior:"smooth"
+//     });
+//   },[id])
+
 
  
   if (!wallpaper) {
@@ -44,6 +51,25 @@ function ImagePage() {
   ? wallpaper.image_url
   : `${BASE_URL}${wallpaper.image_url}`;
 
+  const handleDownload = async () => {
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = wallpaper.name + ".jpg";
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
   return (
     <div className="bg-[#0a0a12] min-h-screen text-white">
       <Navbar />
@@ -55,21 +81,14 @@ function ImagePage() {
           alt={wallpaper.name}
           className="w-full max-h-[80vh] object-contain rounded-2xl"
         />
-       <a
-  href={imageUrl}
-  download
-  target="_blank"
-  rel="noopener noreferrer"
-  className= "hover:bg-purple-500 transition"
+<button
+  onClick={handleDownload}
+  className="mt-4 hover:bg-purple-500 transition p-2 rounded-full"
 >
-    <Download className="mt-4 hover:bg-gray-500 opacity-25 transition " size={50}/>
-  
-</a>
+  <Download className="opacity-40 hover:opacity-100 transition" size={50}/>
+</button>
 
-{/* <a href=""
-target="_blank">
-    <Flag className="mt-4  hover:bg-gray-500 opacity-25 transition " size={50}/>
-</a> */}
+
 
         <h1 className="text-3xl font-bold mt-8">
           {wallpaper.name}
@@ -95,7 +114,7 @@ target="_blank">
 )}
 
       </div>
-      <WallpaperGrid />
+      <WallpaperGrid excludeId={id}/>
       
       <AboutUs />
       

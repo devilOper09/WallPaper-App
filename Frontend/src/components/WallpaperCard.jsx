@@ -8,7 +8,7 @@ const WallpaperCard = ({ wallpaper }) => {
 
   return (
 
-    <Link to={`/wallpapers/${wallpaper.id}`}>
+    <a href={`/wallpapers/${wallpaper.id}`}>
     <motion.img
       src={`${BASE_URL}${wallpaper.image_url}`}
       alt={wallpaper.name}
@@ -18,7 +18,7 @@ const WallpaperCard = ({ wallpaper }) => {
       onLoad={() => setLoaded(true)}
       className="w-full rounded-xl mb-6"
     />
-    </Link>
+    </a>
 
     
   );

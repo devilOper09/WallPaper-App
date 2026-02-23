@@ -4,7 +4,7 @@ import WallpaperCard from "./WallpaperCard";
 
 const BASE_URL = "http://localhost:3000";
 
-function WallpaperGrid() {
+function WallpaperGrid({excludeId}) {
   const [wallpapers, setWallpapers] = useState([]);
 
   useEffect(() => {
@@ -24,9 +24,12 @@ function WallpaperGrid() {
     fetchWallpaper();
   }, []);
 
+
   return (
-    <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-6">
-      {wallpapers.map((wallpaper) => (
+    <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-6 ml-2 mr-2">
+      {wallpapers
+  .filter((wallpaper) => wallpaper.id !== Number(excludeId))
+  .map((wallpaper) => (
   <WallpaperCard key={wallpaper.id} wallpaper={wallpaper} />
 ))}
     </div>

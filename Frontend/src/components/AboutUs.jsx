@@ -35,7 +35,7 @@ function AboutUs() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           viewport={{ once: false }}
-          className="text-gray-400 text-lg leading-relaxed max-w-3xl mx-auto"
+          className="text-purple-400 text-lg leading-relaxed max-w-3xl mx-auto"
         ><Github size={50} /></motion.p>
              
         </a>
@@ -47,7 +47,7 @@ function AboutUs() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           viewport={{ once: false }}
-          className="text-gray-400 text-lg leading-relaxed max-w-3xl mx-auto"
+          className="text-purple-400 text-lg leading-relaxed max-w-3xl mx-auto"
         ><Linkedin size={50} /></motion.p></a>
 
         </div>
