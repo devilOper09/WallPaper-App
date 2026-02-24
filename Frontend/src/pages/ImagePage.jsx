@@ -12,7 +12,7 @@ function ImagePage() {
   const { id } = useParams();
   const [wallpaper, setWallpaper] = useState(null);
 
-  const BASE_URL = "http://localhost:3000"; // backend API only
+  const BASE_URL = "https://wallpaper-app-mi79.onrender.com/"; // backend API only
 
 useEffect(() => {
   const fetchWallpaper = async () => {
