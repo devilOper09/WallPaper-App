@@ -15,36 +15,37 @@ export const getAllPictures = async (req, res) => {
 
 };
 export const postAPicture = async (req, res) => {
-    try {
-        const { name, description } = req.body;
+  try {
+    const { name, description } = req.body;
 
-        if (!req.file) {
-            return res.status(400).json({
-                success: false,
-                message: "Image file required"
-            });
-        }
-
-        const image_url = `/uploads/${req.file.filename}`;
-
-        const uploadData = await sql`
-            INSERT INTO pictures(name, image_url, description)
-            VALUES(${name}, ${image_url}, ${description})
-            RETURNING *
-        `;
-
-        res.status(201).json({
-            success: true,
-            data: uploadData
-        });
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            success: false,
-            message: "Internal server issue"
-        });
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "Image file required"
+      });
     }
+
+    // 🔥 Cloudinary URL
+    const image_url = req.file.path;
+
+    const uploadData = await sql`
+      INSERT INTO pictures(name, image_url, description)
+      VALUES(${name}, ${image_url}, ${description})
+      RETURNING *
+    `;
+
+    res.status(201).json({
+      success: true,
+      data: uploadData
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server issue"
+    });
+  }
 };
 
 export const getPicture = async (req, res) => {

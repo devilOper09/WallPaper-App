@@ -26,7 +26,7 @@ function WallpaperGrid({excludeId}) {
 
 
   return (
-    <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-6 ml-2 mr-2">
+    <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-5 ml-2 mr-2">
       {wallpapers
   .filter((wallpaper) => wallpaper.id !== Number(excludeId))
   .map((wallpaper) => (
