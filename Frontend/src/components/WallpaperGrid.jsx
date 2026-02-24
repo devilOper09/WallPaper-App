@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import WallpaperCard from "./WallpaperCard";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://your-backend-name.onrender.com";
 
 function WallpaperGrid({excludeId}) {
   const [wallpapers, setWallpapers] = useState([]);
