@@ -18,7 +18,9 @@ app.use(helmet({crossOriginResourcePolicy: false}
     
 ));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://wall-paper-app.vercel.app"
+}));
 app.use(morgan("dev"));
 
 // app.use("/uploads", express.static("uploads"));
