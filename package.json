@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "Backend/server.js",
-  "scripts": {
-    "dev": "nodemon Backend/server.js"
-  },
+"scripts": {
+  "start": "node Backend/server.js",
+  "dev": "nodemon Backend/server.js"
+},
   "keywords": [],
   "author": "",
   "type": "module",
